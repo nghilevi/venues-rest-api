@@ -12,16 +12,19 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.github.vinhnghi.client.VenuesClient;
 import io.github.vinhnghi.model.Venue;
 
 @Component
 @Path("/venues")
 public class VenuesResources {
 	
-	private Client client;
+	@Autowired
+	VenuesClient venuesClient;
 	
 	@GET
 	@Produces("application/json")
@@ -35,24 +38,7 @@ public class VenuesResources {
 	@Path("{query}")
 	@Produces("application/json")
 	public String getVenues(@PathParam("query") String query){
-		String url = baseUrl+client_id + client_secret + ll + query+"&" + version;
-		//return client.target(baseUrl).path(client_id + client_secret + ll + "Saigon&" + version).request().get();
-		return url;
+		return venuesClient.getVenues(query);
 	}
 	
-	//TODO put these somewhere else
-	@Value("${baseUrl}")
-	String	baseUrl;
-	
-	@Value("${client_id}")
-	String	client_id;
-	
-	@Value("${client_secret}")
-	String	client_secret;
-	
-	@Value("${ll}")
-	String	ll;
-	
-	@Value("${version}")
-	String version;
 }
