@@ -1,11 +1,19 @@
 package io.github.vinhnghi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Venue {
 
 	private String id;
 	private String address;
 	private String url;
 	private String phone;
+	
+	public Venue() {
+	}
 	
 	public Venue(String id, String address, String url, String phone) {
 		this.id  = id;

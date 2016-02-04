@@ -3,18 +3,16 @@ package io.github.vinhnghi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.github.vinhnghi.client.VenuesClient;
 import io.github.vinhnghi.model.Venue;
@@ -37,8 +35,12 @@ public class VenuesResources {
 	@GET
 	@Path("{query}")
 	@Produces("application/json")
-	public String getVenues(@PathParam("query") String query){
+	public List<Venue> getVenues(@PathParam("query") String query){
+		
 		return venuesClient.getVenues(query);
+		
+		//List<Venue> venues = new ArrayList<>();
+		//return venues;
 	}
 	
 }
