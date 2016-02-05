@@ -1,25 +1,34 @@
 package io.github.vinhnghi.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FourSquareResponse {
-	
-	//Try json property
-	MetaData meta;
+
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	public class Response {
+		List<Venue> venues;
+		public Response(){
+		}
+		public List<Venue> getVenues() {
+			return venues;
+		}
+
+		public void setVenues(List<Venue> venues) {
+			this.venues = venues;
+		}
+	}
+
 	Response response;
 	
 	public FourSquareResponse(){
 	}
 	
-	public MetaData getMeta() {
-		return meta;
-	}
-	public void setMeta(MetaData meta) {
-		this.meta = meta;
-	}
 	public Response getResponse() {
 		return response;
 	}
@@ -28,6 +37,6 @@ public class FourSquareResponse {
 	}
 	
 	public String toString(){
-		return "FourSquareResponse{"+"metaData='" + meta + '\'' + ", response="+response +'}';
+		return "FourSquareResponse{"+"response="+response +'}';
 	}
 }

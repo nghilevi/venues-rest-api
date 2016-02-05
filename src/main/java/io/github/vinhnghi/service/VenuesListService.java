@@ -1,4 +1,4 @@
-package io.github.vinhnghi.client;
+package io.github.vinhnghi.service;
 
 import java.util.List;
 
@@ -17,8 +17,7 @@ import io.github.vinhnghi.model.Venue;
 import javax.ws.rs.core.UriBuilder;
 
 @Component
-public class VenuesClient {
-	private Client client;
+public class VenuesListService {
 	
 	@Value("${baseUrl}")
 	String	baseUrl;
@@ -35,10 +34,7 @@ public class VenuesClient {
 	@Value("${version}")
 	String version;
 	
-	public VenuesClient(){
-		client = ClientBuilder.newClient();
-	}
-	
+
 	public List<Venue> getVenues(String query){
 		RestTemplate restTemplate = new RestTemplate();
 	

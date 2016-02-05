@@ -1,5 +1,8 @@
 package io.github.vinhnghi.model;
 
+
+import org.apache.commons.lang3.StringUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -7,19 +10,50 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Venue {
 
-	private String id;
-	private String address;
-	private String url;
-	private String phone;
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	class Contact{
+		String formattedPhone;
+		public String getFormattedPhone() {
+			return formattedPhone;
+		}
+		public void setFormattedPhone(String formattedPhone) {
+			this.formattedPhone = formattedPhone;
+		}
+		public Contact(){}
+	}
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	@JsonInclude(JsonInclude.Include.NON_NULL)
+	class Location{
+		String[] formattedAddress;
+		public String getFormattedAddress() {
+			return StringUtils.join(formattedAddress,"");
+		}
+		public void setFormattedAddress(String[] formattedAddress) {
+			this.formattedAddress = formattedAddress;
+		}
+		public Location(){}
+	}
 	
+	private String id;
+	private String url;
+	
+	private Contact contact;
+	private Location location;
+	private String phone;
+	private String address;
+
 	public Venue() {
 	}
 	
-	public Venue(String id, String address, String url, String phone) {
-		this.id  = id;
-		this.address = address;
-		this.url = url;
-		this.phone = phone;
+	public void setContact(Contact contact) {
+		this.contact = contact;
+		this.phone = contact.getFormattedPhone();
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+		this.address = location.getFormattedAddress();
 	}
 
 	public String getId() {
@@ -34,24 +68,12 @@ public class Venue {
 		return address;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getUrl() {
 		return url;
 	}
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 }

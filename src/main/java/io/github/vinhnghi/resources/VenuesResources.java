@@ -14,21 +14,21 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import io.github.vinhnghi.client.VenuesClient;
 import io.github.vinhnghi.model.Venue;
+import io.github.vinhnghi.service.VenuesListService;
 
 @Component
 @Path("/venues")
 public class VenuesResources {
 	
 	@Autowired
-	VenuesClient venuesClient;
+	VenuesListService venuesClient;
 	
 	@GET
 	@Produces("application/json")
     public List<Venue> getAll(){
         List<Venue> products = new ArrayList<Venue>();
-        products.add(new Venue("ID", "Address", "Url", "Phone"));
+        products.add(new Venue());
         return products;
     }
 	
@@ -36,11 +36,7 @@ public class VenuesResources {
 	@Path("{query}")
 	@Produces("application/json")
 	public List<Venue> getVenues(@PathParam("query") String query){
-		
 		return venuesClient.getVenues(query);
-		
-		//List<Venue> venues = new ArrayList<>();
-		//return venues;
 	}
 	
 }
