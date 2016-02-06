@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.github.vinhnghi.model.Photo;
 import io.github.vinhnghi.model.Venue;
 import io.github.vinhnghi.service.VenuesListService;
 
@@ -22,21 +23,20 @@ import io.github.vinhnghi.service.VenuesListService;
 public class VenuesResources {
 	
 	@Autowired
-	VenuesListService venuesClient;
-	
-	@GET
-	@Produces("application/json")
-    public List<Venue> getAll(){
-        List<Venue> products = new ArrayList<Venue>();
-        products.add(new Venue());
-        return products;
-    }
+	VenuesListService venuesListService;
 	
 	@GET
 	@Path("{query}")
 	@Produces("application/json")
 	public List<Venue> getVenues(@PathParam("query") String query){
-		return venuesClient.getVenues(query);
+		return venuesListService.getVenues(query);
+	}
+	
+	@GET
+	@Path("{query}/photos")
+	@Produces("application/json")
+	public List<Photo> getPhotosByVenue(@PathParam("query") String query){
+		return venuesListService.getPhotosByVenue(query);
 	}
 	
 }

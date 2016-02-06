@@ -11,8 +11,34 @@ public class FourSquareResponse {
 
 	@JsonIgnoreProperties(ignoreUnknown = true)
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	public class Response {
+	public class Response { //TODO
+		class Photos{
+			int count;
+			public int getCount() {
+				return count;
+			}
+			public void setCount(int count) {
+				this.count = count;
+			}
+			public List<Photo> getPhotos() {
+				return photos;
+			}
+			public void setPhotos(List<Photo> photos) {
+				this.photos = photos;
+			}
+			List<Photo> photos;
+			public Photos(){}
+		}
+		
 		List<Venue> venues;
+		Photos photos; //TODO change name
+		
+		public List<Photo> getPhotos() {
+			return photos.getPhotos();
+		}
+		public void setPhotos(Photos photos) {
+			this.photos = photos;
+		}
 		public Response(){
 		}
 		public List<Venue> getVenues() {
